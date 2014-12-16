@@ -1,0 +1,14 @@
+﻿Build started 12/6/2014 2:15:44 AM.
+     1>Project "c:\Users\Crescens\documents\visual studio 2010\Projects\The Messenger - Beasts\The Messenger - Beasts\The Messenger - Beasts.vcxproj" on node 2 (build target(s)).
+     1>PrepareForBuild:
+         Creating directory "c:\users\crescens\documents\visual studio 2010\Projects\The Messenger - Beasts\Release\".
+       InitializeBuildStatus:
+         Creating "Release\The Messenger - Beasts.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       FinalizeBuildStatus:
+         Deleting file "Release\The Messenger - Beasts.unsuccessfulbuild".
+         Touching "Release\The Messenger - Beasts.lastbuildstate".
+     1>Done Building Project "c:\Users\Crescens\documents\visual studio 2010\Projects\The Messenger - Beasts\The Messenger - Beasts\The Messenger - Beasts.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.17
