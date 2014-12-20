@@ -1,5 +1,5 @@
 #include "InitError.h"
-#include "cSDL.h"
+#include "windowSDL.h"
 #include <iostream>
 #include <stdio.h>
 
