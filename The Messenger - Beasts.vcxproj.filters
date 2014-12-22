@@ -18,24 +18,12 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="InitError.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cSDL.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="windowSDL.cpp">
+    <ClCompile Include="LoadImage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="InitError.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cSDL.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="windowSDL.h">
+    <ClInclude Include="LoadImage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -53,7 +53,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>C:\SDL2-2.0.3\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -73,15 +73,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="InitError.cpp" />
+    <ClCompile Include="LoadImage.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="cSDL.cpp" />
-    <ClCompile Include="windowSDL.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="InitError.h" />
-    <ClInclude Include="cSDL.h" />
-    <ClInclude Include="windowSDL.h" />
+    <ClInclude Include="LoadImage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
