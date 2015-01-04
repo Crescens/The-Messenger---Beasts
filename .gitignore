@@ -47,3 +47,4 @@ Temporary Items
 *.opensdf
 *.suo
 *.vcxproj.user
+*.cd
