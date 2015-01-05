@@ -1,20 +1,22 @@
-﻿Build started 1/4/2015 8:36:11 PM.
+﻿Build started 1/4/2015 11:00:08 PM.
      1>Project "C:\Users\Crescens\Documents\GitHub\The-Messenger---Beasts\The Messenger - Beasts.vcxproj" on node 2 (Build target(s)).
-     1>PrepareForBuild:
-         Creating directory "Debug\The Mess.CEA5F4E6.tlog\".
-       InitializeBuildStatus:
-         Creating "Debug\The Mess.CEA5F4E6.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+     1>InitializeBuildStatus:
+         Touching "Debug\The Mess.CEA5F4E6.tlog\unsuccessfulbuild".
        ClCompile:
-         D:\Visual Studio\VC\bin\CL.exe /c /I"C:\SDL2-2.0.3\include" /AI"C:\SDL2-2.0.3\include" /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Actor.cpp LoadImage.cpp Main.cpp
-         Main.cpp
-     1>c:\users\crescens\documents\github\the-messenger---beasts\loadimage.h(9): fatal error C1083: Cannot open include file: 'SDL_image.h': No such file or directory
-         LoadImage.cpp
-     1>c:\users\crescens\documents\github\the-messenger---beasts\loadimage.h(9): fatal error C1083: Cannot open include file: 'SDL_image.h': No such file or directory
-         Actor.cpp
-     1>c:\users\crescens\documents\github\the-messenger---beasts\loadimage.h(9): fatal error C1083: Cannot open include file: 'SDL_image.h': No such file or directory
-         Generating Code...
-     1>Done Building Project "C:\Users\Crescens\Documents\GitHub\The-Messenger---Beasts\The Messenger - Beasts.vcxproj" (Build target(s)) -- FAILED.
+         D:\Visual Studio\VC\bin\CL.exe /c /I"C:\SDL2-2.0.3\include" /AI"C:\SDL2-2.0.3\include" /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt TileMap.cpp
+         TileMap.cpp
+       Link:
+         D:\Visual Studio\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Crescens\Documents\GitHub\The-Messenger---Beasts\Debug\The Messenger - Beasts.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\SDL2-2.0.3\lib\x86" SDL2.lib SDL2main.lib SDL2_image.lib SDL2_ttf.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Crescens\Documents\GitHub\The-Messenger---Beasts\Debug\The Messenger - Beasts.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Crescens\Documents\GitHub\The-Messenger---Beasts\Debug\The Messenger - Beasts.lib" /MACHINE:X86 Debug\Actor.obj
+         Debug\LoadImage.obj
+         Debug\Main.obj
+         Debug\TileMap.obj
+     1>MSVCRTD.lib(cinitexe.obj) : warning LNK4098: defaultlib 'msvcrt.lib' conflicts with use of other libs; use /NODEFAULTLIB:library
+         The Messenger - Beasts.vcxproj -> C:\Users\Crescens\Documents\GitHub\The-Messenger---Beasts\Debug\The Messenger - Beasts.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\The Mess.CEA5F4E6.tlog\unsuccessfulbuild".
+         Touching "Debug\The Mess.CEA5F4E6.tlog\The Messenger - Beasts.lastbuildstate".
+     1>Done Building Project "C:\Users\Crescens\Documents\GitHub\The-Messenger---Beasts\The Messenger - Beasts.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:08.82
+Time Elapsed 00:00:01.51
