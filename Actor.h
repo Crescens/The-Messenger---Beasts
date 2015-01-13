@@ -1,12 +1,8 @@
 #pragma once
 
-#include <vector>
+#include "Animation.h"
 
-#include <SDL_rect.h>
-
-#include "LoadImage.h"
-
-class Actor
+class Actor : public Animation
 {
 
 public:
@@ -23,7 +19,9 @@ public:
 	unsigned int getMagic_Defense();
 	unsigned int getEvasion();
 	unsigned int getBlocking();
-	unsigned int getVelocity();
+	int getX();
+	int getY();
+
 	
 	// Set Functions
 	void setLevel(unsigned int level);
@@ -35,17 +33,12 @@ public:
 	void setMagic_Defense(unsigned int magic_defense);
 	void setEvasion(unsigned int evasion);
 	void setBlocking(unsigned int blocking);
-	void setVelocity(unsigned int velocity);
 	
-	// Velocity Specific
-	void addVelocity(int addition);
-	void subVelocity(int subtraction);
-
-	// Allocate Textures to mSprites_ as well as creates a rect the size of the texture at index 0
-	void addTexture(SDL_Texture *tex);
-
-	// Render the actor's sprite
-	void renderSprite(int x, int y, SDL_Renderer *renderer);
+	// Direction Change
+	void addX(int x);
+	void subX(int x);
+	void addY(int y);
+	void subY(int y);
 
 	// Walking states
 	enum animationState
@@ -59,6 +52,14 @@ public:
 		ATTACKING_2,
 		ATTACKING_3
 	};
+
+	// Each of these objects holds a series of animations
+	Animation moveUp;
+	Animation moveRight;
+	Animation moveDown;
+	Animation moveLeft;
+
+
 
 private:
 
@@ -74,7 +75,7 @@ private:
 
 	std::vector<std::string> mMove_List_;
 
-	std::vector<SDL_Texture *> mSprites_;
+
 
 	int mX_;
 	int mLast_X_;
@@ -83,6 +84,6 @@ private:
 	int mW_; 
 	int mH_;
 
-	int mVelocity_;
+	// Space reserved for Equipment slots and what is in each.
 };
 

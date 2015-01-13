@@ -13,24 +13,21 @@ Actor::Actor(void)
 	mEvasion_ = 10;
 	mBlocking_ = 5;
 
-	mX_ = 0;
-	mY_ = 0;
+	mX_ = 400;
+	mY_ = 135;
 	mW_ = 0;
 	mH_ = 0;
 
-	mVelocity_ = 0;
 }
 
 
 Actor::~Actor(void)
 {
-	for(int i = 0; i < sizeof(mSprites_); i++)
-	{
-		SDL_DestroyTexture(mSprites_.at(i));
-	}
+	this->free();
 }
 
 // Getting stat parameters
+
 unsigned int Actor::getLevel()
 {
 	return mLevel_;
@@ -76,13 +73,18 @@ unsigned int Actor::getBlocking()
 	return mBlocking_;
 }
 
-unsigned int Actor::getVelocity()
+int Actor::getX()
 {
-	return mVelocity_;
+	return mX_;
 }
 
+int Actor::getY()
+{
+	return mY_;
+}
 
 // Setting stat parameters
+
 void Actor::setLevel(unsigned int level)
 {
 	mLevel_ = level;
@@ -128,38 +130,24 @@ void Actor::setBlocking(unsigned int blocking)
 	mBlocking_ = blocking;
 }
 
-void Actor::setVelocity(unsigned int velocity)
-{
-	mVelocity_ = velocity;
-}
-
 // Velocity Addition and Subtraction
 
-void Actor::addVelocity(int addition)
+void Actor::addX(int x)
 {
-	mVelocity_ += addition;
+	mX_ += x;
 }
-void Actor::subVelocity(int subtraction)
+void Actor::subX(int x)
 {
-	mVelocity_ -= subtraction;
+	mX_ -= x;
 }
-
-// Allocate Textures to mSprites_ as well as creates a rect the size of the texture at index 0
-
-void Actor::addTexture(SDL_Texture *tex)
+void Actor::addY(int y)
 {
-	mSprites_.push_back(tex);
-
-	if(mSprites_.at(0) == NULL)
-	{
-		SDL_QueryTexture(tex, NULL, NULL, &mW_, &mH_);
-	}
-
-	SDL_DestroyTexture(tex);
+	mY_ += y;
+}
+void Actor::subY(int y)
+{
+	mY_ -= y;
 }
 
-// Render the actor's sprite
-//	void renderSprite(int x, int y, SDL_Renderer *renderer)
-//	{
 
 	

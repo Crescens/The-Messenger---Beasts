@@ -1,14 +1,20 @@
-#include "LoadImage.h"
+#pragma once
+
+#include <SDL_timer.h>
+
 #include "Actor.h"
 
 
 int main( int argc, char* args[])
 {
+
+	// BEGIN INITIALIZATION
+
+	const int MAX_FPS = 60;
+	
 	// Global Initialization for Window and Blank Surface to NULL
 	SDL_Window *window=nullptr;
 	SDL_Renderer *renderer=nullptr;
-	Texture backgroundTex;
-	Texture actorTex;
 
 	// Resolution Variables
 	int windowWidth = 640, windowHeight = 480;
@@ -29,92 +35,159 @@ int main( int argc, char* args[])
 			printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
 		}
 
-	// Load the background image
+	// Initialize Background Texture and Actor
+	Texture backgroundTex;
+	Actor actorCeles;
+
+	// END INITIALIZATION
+
+	// Load the background image into the texture object
 	backgroundTex.loadFromFile("Images/Background_Test_1.png", renderer);
-	actorTex.loadFromFile("Images/Test_Sprite_Sheet.png", renderer);
 
-	// Clip out single Test sprite and set a constant animation frame speed
-	SDL_Rect spriteClip[4];
+	// Load the sprite sheet into the Celes object
+	actorCeles.loadFromFile("Images/Test_Sprite_Sheet_2.png", renderer);
 
-	// First Clip - Left Foot
-	spriteClip[0].x = 36;
-	spriteClip[0].y = 65;
-	spriteClip[0].w = 16;
-	spriteClip[0].h = 24;
+	// Clip out the various walking animations into their own vectors
 
-	// Second Clip - Right Foot
-	spriteClip[1].x = 71;
-	spriteClip[1].y = 66;
-	spriteClip[1].w = 16;
-	spriteClip[1].h = 24;
+	// Walking Up - Standing Feet Together - Staring Frame
+	actorCeles.moveUp.clipSprite(26, 10, 16, 24);
+	// Walking Up - Right Foot
+	actorCeles.moveUp.clipSprite(10, 10, 16, 24);
+	// Walking Up - Standing Feet Together
+	actorCeles.moveUp.clipSprite(26, 10, 16, 24);
+	// Walking Up - Left Foot
+	actorCeles.moveUp.clipSprite(42, 10, 16, 24);
 
-	// Third Clip - Left Foot
-	spriteClip[2].x = 36;
-	spriteClip[2].y = 65;
-	spriteClip[2].w = 16;
-	spriteClip[2].h = 24;
+	// Walking Right - Standing Feet Together - Starting Frame
+	actorCeles.moveRight.clipSprite(26, 61, 16, 24);
+	// Walking Right - Right Foot
+	actorCeles.moveRight.clipSprite(10, 61, 16, 24);
+	// Walking Right - Standing Feet Together
+	actorCeles.moveRight.clipSprite(26, 61, 16, 24);
+	// Walking Right - Left Foot
+	actorCeles.moveRight.clipSprite(42, 61, 16, 24);
 
-	// Fourth Clip - Right Foot
-	spriteClip[3].x = 71;
-	spriteClip[3].y = 66;
-	spriteClip[3].w = 16;
-	spriteClip[3].h = 24;
 
-	const int WALKING_ANIMATION_FRAMES = 4;
+	// Walking Down - Standing Feet Together - Starting Frame
+	actorCeles.moveDown.clipSprite(26, 86, 16, 24);
+	// Walking Down - Right Foot
+	actorCeles.moveDown.clipSprite(10, 86, 16, 24);
+	// Walking Down - Standing Feet Together
+	actorCeles.moveDown.clipSprite(26, 86, 16, 24);
+	// Walking Down - Left Foot
+	actorCeles.moveDown.clipSprite(42, 86, 16, 24);
+
+	// Walking Left - Standing Feet Together - Starting Frame
+	actorCeles.moveLeft.clipSprite(26, 36, 16, 24);
+	// Walking Left - Left Foot
+	actorCeles.moveLeft.clipSprite(10, 36, 16, 24);
+	// Walking Left - Standing Feet Together
+	actorCeles.moveLeft.clipSprite(26, 36, 16, 24);
+	// Walking Left - Right Foot
+	actorCeles.moveLeft.clipSprite(42, 36, 16, 24);
+
+	// Animation control
+	int frame = 0;
+
+	// Loop Control, Message Pump Init, and Time Control
+	bool quit = false;
+	SDL_Event e;
+
+	// Sets up animation cycle
+	int animationTest = 0;
+
+	// Frame Cap Init
+	Uint32 frameStart = 0;
 
 	// Main Loop
-	while (1)
+	while (!quit)
 	{
-		// Animation control
-		int frame = 0;
+		// Last key pressed Flag
+		std::string actionFlag = "reset";
 
-		// Event object
-		SDL_Event e;
-		if (SDL_PollEvent(&e))
+		// Creates the current clip variable and checks to see if it's empty.
+		SDL_Rect currentClip = actorCeles.moveUp.getFrame(0);
+
+		// Handle all the events in the queue
+		while (SDL_PollEvent(&e) != 0)
 		{
-			if( e.type == SDL_QUIT)
+
+			Uint32 deltaTime = SDL_GetTicks() - frameStart;
+
+			if (e.type == SDL_QUIT)
 			{
-				break;
+				quit = true;
 			}
+
+			else if (e.type == SDL_KEYDOWN && e.key.keysym.scancode == SDL_SCANCODE_W)
+			{
+				if (actionFlag == "Up" && (SDL_GetTicks() - actorCeles.moveUp.getTiming()) > 75)
+				{
+					animationTest++;
+					actorCeles.moveUp.setTiming(SDL_GetTicks());
+				}
+				else
+				{
+					animationTest = 0;
+				}
+				currentClip = actorCeles.moveUp.getFrame(animationTest);
+				actorCeles.subY(1 * deltaTime);
+
+				actionFlag = "Up";
+			}
+
+			else if (e.type == SDL_KEYDOWN && e.key.keysym.scancode == SDL_SCANCODE_S)
+			{
+				if (actionFlag == "Up" && (SDL_GetTicks() - actorCeles.moveDown.getTiming()) > 75)
+				{
+					animationTest++;
+					actorCeles.moveDown.setTiming(SDL_GetTicks());
+				}
+				else
+				{
+					animationTest = 0;
+				}
+				currentClip = actorCeles.moveDown.getFrame(animationTest);
+				actorCeles.addY(1 * deltaTime);
+
+				actionFlag = "Up";
+			}
+
+			if (animationTest == 3)
+			{
+				animationTest = 0;
+				actionFlag = "reset";
+			}
+
+			if (1000 / MAX_FPS > SDL_GetTicks() - frameStart)
+			{
+				SDL_Delay((1000 / MAX_FPS) - (SDL_GetTicks() - frameStart));
+			}
+
 		}
 
-		// Empties out the renderer, if anything is present, copies the texture to the renderer, presents the render
-		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-		SDL_RenderClear(renderer);
+			// Empties out the renderer, if anything is present, copies the texture to the renderer, presents the render
+			SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+			SDL_RenderClear(renderer);
 
-		/* Creates a viewport
-		SDL_Rect viewport;
-		viewport.x = 0;
-		viewport.y = 0;
-		viewport.w = windowWidth / 2;
-		viewport.h = windowHeight / 2;
-		SDL_RenderSetViewport( renderer, &viewport );
-		*/
+			// Render the background texture
+			backgroundTex.render(0, 0, renderer);
 
-		// Render the background texture
-		backgroundTex.render(0,0,renderer);
+			// Render the actor texture
+			actorCeles.render(actorCeles.getX(), actorCeles.getY(), renderer, &currentClip);
 
-		// Render the actor texture with a delay
-		SDL_Rect* currentClip = &spriteClip[ frame / 4 ];
-		actorTex.render(400, 135,renderer, currentClip);
+			// Update renderer
+			SDL_RenderPresent(renderer);
+
+			
 		
-		// Update renderer
-		SDL_RenderPresent(renderer);
-
-		//Go to next frame
-		++frame;
-
-		//Cycle animation
-		if( frame / 4 >= WALKING_ANIMATION_FRAMES )
-			{
-				frame = 0;
-			}
-
+		
+			
 	}
-
+		
 	// Properly shutting down each of the SDL moving parts
 	backgroundTex.free();
-	actorTex.free();
+	actorCeles.free();
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 

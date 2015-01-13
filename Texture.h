@@ -9,6 +9,7 @@
 #include <SDL_image.h>
 
 
+
 //Texture wrapper class
 class Texture
 {
@@ -40,7 +41,5 @@ class Texture
 		int mWidth_;
 		int mHeight_;
 };
-
-//SDL_Texture *loadImage( std::string filePath, SDL_Renderer *renderer);
 
 
