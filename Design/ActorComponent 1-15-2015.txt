@@ -1,7 +1,5 @@
-#include "Actor.h"
+// Actor Component
 
-
-Actor::Actor(void)
 {
 	mLevel_ = 1;
 	mHealth_ = 50;
@@ -148,6 +146,3 @@ void Actor::subY(int y)
 {
 	mY_ -= y;
 }
-
-
-	
