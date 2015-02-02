@@ -8,9 +8,8 @@ class GameObject
 public:
 	int x, y;
 
-	virtual void update(World &world);
+	virtual void update();
 
-private:
 	// Components added as necessary
 	InputComponent input_;
 	GraphicsComponent graphics_;

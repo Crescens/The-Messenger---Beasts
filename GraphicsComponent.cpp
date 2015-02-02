@@ -18,7 +18,7 @@ GraphicsComponent::GraphicsComponent()
 GraphicsComponent::~GraphicsComponent()
 
 Destructor calls free().
-\*----------------------------------------------------------------------------------------------------------------------------------------------------*/
+------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 GraphicsComponent::~GraphicsComponent()
 {
@@ -27,30 +27,46 @@ GraphicsComponent::~GraphicsComponent()
 }
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------------
-GraphicsComponent::update()
+GraphicsComponent::render()
 
-Sets the data for the render target destination and dimensions, and then sends it into the rendering queue.
-\*----------------------------------------------------------------------------------------------------------------------------------------------------*/
+Sets the data for the render target destination and dimensions, and then renders it.
+------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-void GraphicsComponent::update(GameObject &Object)
+void GraphicsComponent::render(World world, double deltaTime)
 {
-	renderTarget_.x = Object.x;
-	renderTarget_.y = Object.y;
-	renderTarget_.w = strip_.at(0).w;
-	renderTarget_.h = strip_.at(0).h;
+	mRenderTarget_.x += this.velocity * deltaTime;
+	mRenderTarget_.y += GameObject.velocity * deltaTime;
+	mRenderTarget_.w = mStrip_.at(mFrame_).w;
+	mRenderTarget_.h = mStrip_.at(mFrame_).h;
 
-	//addToRenderList(*This);
+	SDL_RenderCopy(world.renderer, mTexture_, this->mStrip_.at(&mFrame_), &mRenderTarget_);
+
+	++mFrame_;
+
+	if (mFrame_ >= mMaxFrames_)
+	{
+		mFrame_ = 0;
+	}
 }
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------------
+GraphicsComponent::render()
+
+Adds to render queue.
+------------------------------------------------------------------------------------------------------------------------------------------------------*/
+void update()
+{
+	
+}
+/*------------------------------------------------------------------------------------------------------------------------------------------------------
 GraphicsComponent::loadFromFile()
 
-This class function loads a file, turns it into a surface, then creates a hardware accelerated texture from the surface.It then frees the surface
-and then destroys the temporary texture.It returns true if the returned texture is not null.
-\*----------------------------------------------------------------------------------------------------------------------------------------------------*/
-bool GraphicsComponent::loadFromFile(std::string path, World &world)
+This class function loads a file, turns it into a surface, then creates a hardware accelerated texture from the surface. It then frees the surface
+and then destroys the temporary texture. It returns true if the returned texture is not null.
+------------------------------------------------------------------------------------------------------------------------------------------------------*/
+bool GraphicsComponent::loadFromFile(std::string path, SDL_Renderer *renderer)
 {
-	//Get rid of preexisting texture
+	//Get rid of pre-existing texture
 	free();
 
 	//The final texture
@@ -64,11 +80,11 @@ bool GraphicsComponent::loadFromFile(std::string path, World &world)
 	}
 	else
 	{
-		//Color key image
+		// Color key image
 		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0x80, 0x80));
 
 		//Create texture from surface pixels
-		newTexture = SDL_CreateTextureFromSurface(world.renderer, loadedSurface);
+		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 		if (newTexture == nullptr)
 		{
 			printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
@@ -93,9 +109,9 @@ bool GraphicsComponent::loadFromFile(std::string path, World &world)
 /*------------------------------------------------------------------------------------------------------------------------------------------------------
 GraphicsComponent::free()
 
-This class function is almost identical to the contstructor.It tests to see if the member variables mTexture_ is empty, and if it is not, it
+This class function is almost identical to the constructor. It tests to see if the member variables mTexture_ is empty, and if it is not, it
 destroys the texture and resets the mWidth_ and mHeight_ member variables to zero.
-\*----------------------------------------------------------------------------------------------------------------------------------------------------*/
+------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 void GraphicsComponent::free()
 {
@@ -113,7 +129,7 @@ void GraphicsComponent::free()
 GraphicsComponent::getWidth()
 
 Returns the width of the full size of the loaded image.
-\*----------------------------------------------------------------------------------------------------------------------------------------------------*/
+------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 int GraphicsComponent::getWidth()
 {
@@ -124,7 +140,7 @@ int GraphicsComponent::getWidth()
 GraphicsComponent::getHeight()
 
 Returns the height of the full size of the loaded image.
-\*----------------------------------------------------------------------------------------------------------------------------------------------------*/
+------------------------------------------------------------------------------------------------------------------------------------------------------*/
 int GraphicsComponent::getHeight()
 {
 	return mHeight_;
@@ -133,28 +149,28 @@ int GraphicsComponent::getHeight()
 /*------------------------------------------------------------------------------------------------------------------------------------------------------
 GraphicsComponent::getFrame()
 
-Takes the supplied index and returns a SDL_Rect located at strip_.
-\*----------------------------------------------------------------------------------------------------------------------------------------------------*/
+Takes the supplied index and returns a SDL_Rect located at mStrip_.
+------------------------------------------------------------------------------------------------------------------------------------------------------*/
 SDL_Rect GraphicsComponent::getFrame(int index)
 {
-	return strip_.at(index);
+	return mStrip_.at(index);
 }
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------------
-GraphicsComponent::getStrip()
+GraphicsComponent::getFrame()
 
-Returns strip_.
-\*----------------------------------------------------------------------------------------------------------------------------------------------------*/
-std::vector<SDL_Rect> GraphicsComponent::getStrip()
+Sets the maximum number of frames in an animation
+------------------------------------------------------------------------------------------------------------------------------------------------------*/
+void GraphicsComponent::setMaxFrames(int frames)
 {
-	return strip_;
+	mMaxFrames_ = frames;
 }
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------------
 GraphicsComponent::clipSprite()
 
-Creates a SDL_Rect with the x, y, w, and h dimensions specified.It then appends it to the end of strip_, which is a vector of SDL_Rects.
-\*----------------------------------------------------------------------------------------------------------------------------------------------------*/
+Creates a SDL_Rect with the x, y, w, and h dimensions specified. It then appends it to the end of mStrip_, which is a vector of SDL_Rects.
+------------------------------------------------------------------------------------------------------------------------------------------------------*/
 void GraphicsComponent::clipSprite(int x, int y, int w, int h)
 {
 	SDL_Rect spriteClip;
@@ -162,5 +178,5 @@ void GraphicsComponent::clipSprite(int x, int y, int w, int h)
 	spriteClip.y = y;
 	spriteClip.w = w;
 	spriteClip.h = h;
-	strip_.push_back(spriteClip);
+	mStrip_.push_back(spriteClip);
 }

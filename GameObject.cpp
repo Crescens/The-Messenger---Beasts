@@ -3,6 +3,8 @@
 
 GameObject::GameObject()
 {
+	x = 0;
+	y = 0;
 }
 
 
@@ -11,8 +13,6 @@ GameObject::~GameObject()
 }
 
 
-void GameObject::update(World &world)
+void GameObject::update()
 {
-	graphics_.update();
-
 }

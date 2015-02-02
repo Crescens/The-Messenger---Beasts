@@ -2,7 +2,6 @@
 
 #include <vector>
 
-#include <SDL.h>
 #include <SDL_image.h>
 
 #include "GameObject.h"
@@ -12,7 +11,7 @@ class World
 public:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
-	const int WIDTH = 640;
+	const int WIDTH = 640; 
 	const int HEIGHT = 480;
 	int imgFlags = IMG_INIT_PNG;
 	double previousTime;
@@ -28,9 +27,6 @@ public:
 	// Initializes the window and renderer
 	void initialize();
 
-	// Renders texture at given point
-	void render(double normalizedDelta);
-
 	void gameLoop();
 
 	void cleanUp();
@@ -40,5 +36,4 @@ public:
 private:
 	std::vector<GameObject* > updateList;
 	std::vector<GameObject* > renderList;
-
-};
+}

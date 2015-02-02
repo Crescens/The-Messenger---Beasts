@@ -4,7 +4,6 @@
 
 int main(int argc, char* args[])
 {
-
 	World world;
 
 	world.initialize();
@@ -12,5 +11,4 @@ int main(int argc, char* args[])
 	world.gameLoop();
 
 	world.cleanUp();
-
 }
